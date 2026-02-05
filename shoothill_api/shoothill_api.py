@@ -83,8 +83,7 @@ class GAUGE(coast.Tidegauge):
         try:
             #import config_keys # Load secret keys
             config_keys = []
-            config_key.shoothill_ley = ${{ secrets.SHOOTHILL_KEY }}
-            config_key.shoothill_PublicApiKey = ${{ secrets.SHOOTHILL_PublicApiKey }}
+            config_key.SHOOTHILL_KEY = ${{ secrets.SHOOTHILL_KEY }}
         except:
             logging.info('Need a Shoothil API Key. Use e.g. create_shoothill_key() having obtained a public key')
 
