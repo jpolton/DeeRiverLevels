@@ -81,7 +81,10 @@ class GAUGE(coast.Tidegauge):
     #def __init__(self, ndays: int=5, startday: datetime=None, endday: datetime=None, station_id="7708"):
     def __init__(self, dataset=None):
         try:
-            import config_keys # Load secret keys
+            #import config_keys # Load secret keys
+            config_keys = []
+            config_key.shoothill_ley = ${{ secrets.SHOOTHILL_KEY }}
+            config_key.shoothill_PublicApiKey = ${{ secrets.SHOOTHILL_PublicApiKey }}
         except:
             logging.info('Need a Shoothil API Key. Use e.g. create_shoothill_key() having obtained a public key')
 
