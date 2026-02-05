@@ -54,6 +54,12 @@ STATIONS = {
         "name": "Farndon",
         "source": "Shoothill",
         "description": "Shoothill monitoring station"
+    },
+    "queens_park": {
+        "id": "10831",
+        "name": "Queens Park ground water level",
+        "source": "Shoothill",
+        "description": "Shoothill monitoring station"
     }
 }
 
@@ -72,6 +78,36 @@ def fetch_station_data(station_id: str) -> dict:
         return {"items": []}
 
 
+def get_shoothill_datatype(station_id: str) -> int:
+    """Get the correct dataType for a Shoothill station from the API."""
+    try:
+        import config_keys
+        SessionHeaderId = config_keys.SHOOTHILL_KEY
+    except:
+        print(f"Warning: Could not load SHOOTHILL_KEY from config_keys")
+        return 3  # Default to 3 for backwards compatibility
+    
+    try:
+        headers = {'content-type': 'application/json', 'SessionHeaderId': SessionHeaderId}
+        url = f'http://riverlevelsapi.shoothill.com/TimeSeries/GetTimeSeriesStationById/?stationId={station_id}'
+        response = requests.get(url, headers=headers, timeout=10)
+        data = response.json()
+        
+        if 'gaugeList' in data and data['gaugeList']:
+            gauge_list = data['gaugeList']
+            if isinstance(gauge_list, str):
+                gauge_list = json.loads(gauge_list)
+            
+            if isinstance(gauge_list, list) and len(gauge_list) > 0:
+                dataTypeId = gauge_list[0].get('dataTypeId', 3)
+                print(f"Station {station_id}: Using dataTypeId={dataTypeId}")
+                return dataTypeId
+    except Exception as e:
+        print(f"Warning: Could not determine dataType for station {station_id}: {e}")
+    
+    return 3  # Default fallback
+
+
 def fetch_shoothill_data(station_id: str) -> dict:
     """Fetch readings from Shoothill API."""
     if GAUGE is None:
@@ -83,11 +119,16 @@ def fetch_shoothill_data(station_id: str) -> dict:
         date_start = np.datetime64(datetime.now().date().isoformat())
         #date_start = np.datetime64(datetime.utcnow().date().isoformat())
         #date_start = date_end - np.timedelta64(ndays, 'D')
+        
+        # Get the correct dataType for this station
+        dataType = get_shoothill_datatype(station_id)
+        
         gauge = GAUGE()
         dataset = gauge.read_shoothill_to_xarray(
             station_id=station_id,
             date_start=date_start,
-            date_end=date_end
+            date_end=date_end,
+            dataType=dataType
         )
         return dataset
     except Exception as e:
