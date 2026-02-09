@@ -55,7 +55,7 @@ def fetch_historical_data(station_id, ndays=3):
 try:
     # Example usage
     ndays = 3
-    station_id = 4173
+    station_id = 4173 # NRW: Ironbridge
     
     data = fetch_historical_data(station_id, ndays)
     
