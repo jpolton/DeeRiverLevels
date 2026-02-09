@@ -27,6 +27,12 @@ try:
 except Exception as e:
     print(f"Warning: Shoothill API not available ({e}). Shoothill stations will not work.")
 
+
+try:
+    from nrw_api.nrw_api import fetch_historical_data
+except Exception as e:
+    print(f"Warning: NRW API not available ({e}). NRW stations will not work.")
+
 app = Flask(__name__, template_folder='docs')
 
 # Station definitions
@@ -44,16 +50,16 @@ STATIONS = {
         "description": "Environment Agency monitoring station"
     },
     "ironbridge": {
-        "id": "968",
+        "id": "4173", #NRW:4273 Shoothill:968,
         "name": "Ironbridge",
-        "source": "Shoothill",
-        "description": "Shoothill monitoring station"
+        "source": "NRW",
+        "description": "Natural Resources Wales monitoring station"
     },
     "farndon": {
-        "id": "972",
+        "id": "4170", #NRW:4170 Shoothill:972,
         "name": "Farndon",
-        "source": "Shoothill",
-        "description": "Shoothill monitoring station"
+        "source": "NRW",
+        "description": "Natural Resources Wales monitoring station"
     },
     "queens_park": {
         "id": "10831",
@@ -213,6 +219,15 @@ def get_station_data(station_key: str, ndays: int = 1) -> dict:
     try:
         if station["source"] == "EA":
             data = fetch_station_data(station["id"], ndays=ndays)
+            readings = [
+                {
+                    "dateTime": item["dateTime"],
+                    "value": item["value"]
+                }
+                for item in data.get("items", [])
+            ]
+        elif station["source"] == "NRW":
+            data = fetch_historical_data(station["id"], ndays=ndays)
             readings = [
                 {
                     "dateTime": item["dateTime"],
