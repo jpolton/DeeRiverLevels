@@ -55,6 +55,7 @@ STATIONS = {
         "source": "NRW",
         "description": "Natural Resources Wales monitoring station",
         "parameter_id": 41
+        # Addtional, EA, data on IronBridge: https://environment.data.gov.uk/flood-monitoring/id/stations/067027_TG_127/stageScale
     },
     "farndon": {
         "id": "4170", #NRW:4170 Shoothill:972,
@@ -70,6 +71,7 @@ STATIONS = {
         "description": "Shoothill monitoring station"
     }
 }
+# Extra EA data on Finchett's Gutter etc: https://environment.data.gov.uk/flood-monitoring/id/stations?lat=53.1899&long=-2.8853&dist=10
 
 
 def fetch_station_data(station_id: str, ndays: int = 1) -> dict:
