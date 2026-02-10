@@ -9,7 +9,7 @@ except:
 
 from datetime import datetime, timedelta
 
-def fetch_historical_data(station_id, ndays=3):
+def fetch_historical_data(station_id, ndays=3, parameter=41):
     # Calculate date range
     to_date_dt = datetime.now()
     from_date_dt = to_date_dt - timedelta(days=ndays)
@@ -21,7 +21,7 @@ def fetch_historical_data(station_id, ndays=3):
     base_url = "https://api.naturalresources.wales/rivers-and-seas/v1/api/StationData/historical"
     params = {
         "location": station_id,
-        "parameter": 41,
+        "parameter": parameter,
         "from": from_date,
         "to": to_date
     }
@@ -57,7 +57,7 @@ try:
     ndays = 3
     station_id = 4173 # NRW: Ironbridge
     
-    data = fetch_historical_data(station_id, ndays)
+    data = fetch_historical_data(station_id, ndays, parameter=41)
     
     if 'items' in data and len(data['items']) > 0:
         readings = data['items']

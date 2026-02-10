@@ -53,13 +53,15 @@ STATIONS = {
         "id": "4173", #NRW:4273 Shoothill:968,
         "name": "Ironbridge",
         "source": "NRW",
-        "description": "Natural Resources Wales monitoring station"
+        "description": "Natural Resources Wales monitoring station",
+        "parameter_id": 41
     },
     "farndon": {
         "id": "4170", #NRW:4170 Shoothill:972,
         "name": "Farndon",
         "source": "NRW",
-        "description": "Natural Resources Wales monitoring station"
+        "description": "Natural Resources Wales monitoring station",
+        "parameter_id": 40
     },
     "queens_park": {
         "id": "10831",
@@ -227,7 +229,8 @@ def get_station_data(station_key: str, ndays: int = 1) -> dict:
                 for item in data.get("items", [])
             ]
         elif station["source"] == "NRW":
-            data = fetch_historical_data(station["id"], ndays=ndays)
+            parameter_id = station.get("parameter_id", 41) # Default to 41 if not specified
+            data = fetch_historical_data(station["id"], ndays=ndays, parameter=parameter_id)
             readings = [
                 {
                     "dateTime": item["dateTime"],
