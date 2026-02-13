@@ -1,11 +1,11 @@
 ########### Python 3.2 #############
 import urllib.request, urllib.parse, json
-
+import requests
 
 try:
     import config_keys # Load secret keys
 except:
-    print('Need a Shoothil API Key. Use e.g. create_shoothill_key() having obtained a public key')
+    print('Need a NRW API Key.')
 
 from datetime import datetime, timedelta
 
@@ -49,14 +49,19 @@ def fetch_historical_data(station_id, ndays=3, parameter=41):
                 "dateTime": reading['time'],
                 "value": reading['value']
             })
-            
-    return {"items": items}
+
+    # Return the raw data as well so we can access metadata
+    result = {"items": items}
+    return result
+
+
 
 try:
     # Example usage
     ndays = 3
     station_id = 4173 # NRW: Ironbridge
-    
+
+
     data = fetch_historical_data(station_id, ndays, parameter=41)
     
     if 'items' in data and len(data['items']) > 0:
@@ -69,3 +74,34 @@ try:
 
 except Exception as e:
     print(e)
+
+
+
+
+
+
+
+URL = f"https://api.naturalresources.wales/{station_id}"
+
+
+hdr ={
+# Request headers
+'Ocp-Apim-Subscription-Key': config_keys.NRW_KEY,
+'Accept': 'application/json'
+}
+
+response = requests.get(URL, headers=hdr)
+
+if response.status_code == 200:
+    data = response.json()
+    # Typical level data is usually found within the parameters list
+    for param in data.get('parameters', []):
+        if param.get('parameterType') == 1:  # Type 1 is typically River Level
+            print(f"Station: {data.get('stationName')}")
+            print(f"Typical Range Low: {param.get('typicalRangeLow')}m")
+            print(f"Typical Range High: {param.get('typicalRangeHigh')}m")
+else:
+    print(f"Error: {response.status_code} - {response.text}")
+
+
+
