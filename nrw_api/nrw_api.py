@@ -32,7 +32,7 @@ from datetime import datetime, timedelta
 
 def fetch_historical_data(station_id, ndays=3, parameter=41):
     # Calculate date range
-    to_date_dt = datetime.now()
+    to_date_dt = datetime.now() + timedelta(days=1) # Ensure the to_date is from the upcoming midnight
     from_date_dt = to_date_dt - timedelta(days=ndays)
     
     # Format dates as strings (YYYY-MM-DD)
