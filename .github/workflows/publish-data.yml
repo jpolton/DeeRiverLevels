@@ -2,7 +2,7 @@ name: Refresh JSON for GitHub Pages
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # every 30 minutes UTC  (Actions won't reliably run < 5 minutes)
+    - cron: "7,37 * * * *"   # run at :07 and :37 past the hour (UTC), avoids peak contention
   workflow_dispatch:
 
 jobs:
