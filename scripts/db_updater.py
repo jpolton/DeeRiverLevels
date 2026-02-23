@@ -44,6 +44,7 @@ except Exception as e:
 DEFAULT_DB_PATH = os.environ.get("TS_DB_PATH", "../docs/data/timeseries.sqlite")
 RETENTION_DAYS = int(os.environ.get("TS_RETENTION_DAYS", "7"))   # keep last 7 days
 FETCH_WINDOW_DAYS = int(os.environ.get("TS_FETCH_WINDOW_DAYS", "7"))  # refetch this window each run
+MIN_FETCH_SECONDS = 900  # always fetch at least 15 mins to catch the very latest readings
 
 
 def utc_now():
@@ -127,7 +128,6 @@ def prune_old(conn: sqlite3.Connection, retention_days: int):
     return deleted
 
 
-MIN_FETCH_SECONDS = 900  # always fetch at least 15 mins to catch the very latest readings
 
 
 def update_once(conn: sqlite3.Connection, fetch_days: int, retention_days: int) -> dict:
