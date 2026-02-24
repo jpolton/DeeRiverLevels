@@ -2,7 +2,12 @@ name: Refresh JSON for GitHub Pages
 
 on:
   schedule:
-    - cron: "7,37 * * * *"   # run at :07 and :37 past the hour (UTC), avoids peak contention
+    # run at :07, 22, 37, 52  past the hour (UTC), between 11 and 2pm to avoids peak contention
+    - cron: "7,22,37,52 11-14 * * *"
+    # run every 30mins outside the midday window, in day time.
+    - cron: "22,52 7-10,15-22 * * *"
+    # don't run at night between ~11pm and 7am
+    
   workflow_dispatch:
 
 jobs:
