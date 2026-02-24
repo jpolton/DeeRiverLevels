@@ -29,6 +29,17 @@ jobs:
           pip install Flask pandas requests numpy python-dateutil
           
 
+      - name: Clear daily log
+        run: |
+          LOG=docs/data/test_update.log
+          if [ -f "$LOG" ]; then
+            file_date=$(date -r "$LOG" +%Y-%m-%d)
+            today=$(date -u +%Y-%m-%d)
+            if [ "$file_date" != "$today" ]; then
+              echo "" > "$LOG"
+            fi
+          fi
+
       - name: Generate station DB
         env:
           OUT_DIR: docs/data
