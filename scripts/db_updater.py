@@ -151,8 +151,10 @@ def update_once(conn: sqlite3.Connection, fetch_days: int, retention_days: int) 
             if latest_ts is None:
                 # No data yet — fetch the full requested window.
                 days_to_fetch = fetch_days
+                logging.info(f"{station_key}: No data in DB, fetching {fetch_days} days")
             else:
                 gap_seconds = now_epoch - latest_ts
+                logging.info(f"{station_key}: gap_seconds {gap_seconds}s")
                 if gap_seconds < MIN_FETCH_SECONDS:
                     logging.info(
                         f"{station_key}: already up-to-date "
