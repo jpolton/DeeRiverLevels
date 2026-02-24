@@ -1,0 +1,6 @@
+2026-02-24 09:03:31,000 INFO chester: 705 new readings (window=7d)
+2026-02-24 09:03:32,452 INFO liverpool: 706 new readings (window=7d)
+2026-02-24 09:03:33,906 INFO ironbridge: 620 new readings (window=7d)
+2026-02-24 09:03:35,288 INFO farndon: 623 new readings (window=7d)
+2026-02-24 09:03:36,729 INFO queens_park: 174 new readings (window=7d)
+2026-02-24 09:03:36,734 INFO Pruned 2700 old rows (> 7 days)
