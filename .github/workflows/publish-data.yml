@@ -31,19 +31,14 @@ jobs:
 
       - name: Clear daily log
         run: |
-
           LOG=docs/data/test_update.log
-          
           if [ -f "$LOG" ] && [ -s "$LOG" ]; then
               # read last line of file
               last_line=$(tail -n 1 "$LOG")
-          
               # extract first 10 chars: YYYY-MM-DD
               log_date=${last_line:0:10}
-          
               # today's date in UTC (to match your timestamp style)
               today=$(date -u +%Y-%m-%d)
-          
               if [ "$log_date" != "$today" ]; then
                   echo "New day detected ($log_date -> $today), clearing log."
                   : > "$LOG"
