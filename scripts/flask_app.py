@@ -89,7 +89,7 @@ def fetch_station_data(station_id: str, ndays: int = 1) -> dict:
     #params = {"startdate": py_dt_start.strftime('%Y-%m-%d'), "enddate": py_dt_end.strftime('%Y-%m-%d')}
     params = {"since": py_dt_start.strftime('%Y-%m-%dT00:00:00Z'), "_limit": 800}
     try:
-        response = requests.get(url, params=params, timeout=10)
+        response = requests.get(url, params=params, timeout=(5, 30))
         response.raise_for_status()
         return response.json()
     except Exception as e:
