@@ -73,20 +73,21 @@ def fetch_historical_data(station_id, ndays=3, parameter=41):
             
     return {"items": items}
 
-try:
-    # Example usage
-    ndays = 3
-    station_id = 4173 # NRW: Ironbridge
-    
-    data = fetch_historical_data(station_id, ndays, parameter=41)
-    
-    if 'items' in data and len(data['items']) > 0:
-        readings = data['items']
-        print(f"Count: {len(readings)}")
-        print(f"First: {readings[0]}")
-        print(f"Last:  {readings[-1]}")
-    else:
-        print("No readings found in items")
+if __name__ == "__main__":
+    try:
+        # Example usage
+        ndays = 3
+        station_id = 4173 # NRW: Ironbridge
+        
+        data = fetch_historical_data(station_id, ndays, parameter=41)
+        
+        if 'items' in data and len(data['items']) > 0:
+            readings = data['items']
+            print(f"Count: {len(readings)}")
+            print(f"First: {readings[0]}")
+            print(f"Last:  {readings[-1]}")
+        else:
+            print("No readings found in items")
 
-except Exception as e:
-    print(e)
+    except Exception as e:
+        print(e)
