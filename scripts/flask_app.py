@@ -114,6 +114,24 @@ def fetch_station_data(station_id: str, ndays: int = 1) -> dict:
             }
             response = requests.get(url, params=params, headers=fallback_headers, timeout=(5, 30))
             
+        # Second fallback: use cURL via subprocess (bypasses requests TLS fingerprint blocking on Azure App Gateway)
+        if response.status_code == 403:
+            print("Python requests blocked by WAF. Falling back to cURL...")
+            import subprocess
+            from urllib.parse import urlencode
+            import json as json_lib
+            
+            curl_url = f"{url}?{urlencode(params)}"
+            result = subprocess.run(['curl', '-s', '-H', 'Accept: application/json', curl_url], capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                try:
+                    return json_lib.loads(result.stdout)
+                except json_lib.JSONDecodeError:
+                    print(f"cURL returned non-JSON response: {result.stdout[:200]}")
+            else:
+                print(f"cURL fallback failed: {result.stderr}")
+                
         response.raise_for_status()
         return response.json()
     except requests.exceptions.HTTPError as e:
