@@ -88,15 +88,24 @@ def fetch_station_data(station_id: str, ndays: int = 1) -> dict:
     # Use full ISO timestamp for enddate to capture all available data
     #params = {"startdate": py_dt_start.strftime('%Y-%m-%d'), "enddate": py_dt_end.strftime('%Y-%m-%d')}
     params = {"since": py_dt_start.strftime('%Y-%m-%dT00:00:00Z'), "_limit": 800}
+    
+    # Add User-Agent header to comply with API requirements
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    }
+    
     try:
-        response = requests.get(url, params=params, timeout=(5, 30))
+        response = requests.get(url, params=params, headers=headers, timeout=(5, 30))
         response.raise_for_status()
         return response.json()
+    except requests.exceptions.HTTPError as e:
+        # More detailed error handling for HTTP errors
+        print(f"HTTP Error: {e.response.status_code} - {e.response.reason}")
+        print(f"Response: {e.response.text}")
+        return {"items": []}
     except Exception as e:
         print(f"Error fetching EA data: {e}")
         return {"items": []}
-
-
 
 
 
