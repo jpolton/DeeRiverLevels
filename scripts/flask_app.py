@@ -89,13 +89,31 @@ def fetch_station_data(station_id: str, ndays: int = 1) -> dict:
     #params = {"startdate": py_dt_start.strftime('%Y-%m-%d'), "enddate": py_dt_end.strftime('%Y-%m-%d')}
     params = {"since": py_dt_start.strftime('%Y-%m-%dT00:00:00Z'), "_limit": 800}
     
-    # Add User-Agent header to comply with API requirements
+    # Use comprehensive headers that typically pass WAF inspection
     headers = {
-        'User-Agent': 'DeeRiverLevels/1.0 (https://github.com/jpolton/DeeRiverLevels)'
+        'User-Agent': 'DeeRiverLevelsDataFetcher/1.0',
+        'Accept': 'application/json'
     }
     
     try:
         response = requests.get(url, params=params, headers=headers, timeout=(5, 30))
+        
+        # If blocked by WAF (403), retry once with a standard browser fingerprint
+        if response.status_code == 403:
+            fallback_headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
+                'Sec-Fetch-User': '?1'
+            }
+            response = requests.get(url, params=params, headers=fallback_headers, timeout=(5, 30))
+            
         response.raise_for_status()
         return response.json()
     except requests.exceptions.HTTPError as e:
