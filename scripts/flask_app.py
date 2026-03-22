@@ -91,7 +91,7 @@ def fetch_station_data(station_id: str, ndays: int = 1) -> dict:
     
     # Add User-Agent header to comply with API requirements
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        'User-Agent': 'DeeRiverLevels/1.0 (https://github.com/jpolton/DeeRiverLevels)'
     }
     
     try:
