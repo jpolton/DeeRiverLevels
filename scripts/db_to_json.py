@@ -130,7 +130,7 @@ def export_all_stations(db_path: str, output_dir: str):
         export_station_to_json(conn, station_key, output_dir)
     
     conn.close()
-    print(f"\n✓ Export complete! {len(station_keys)} file(s) written.")
+    print(f"\n[OK] Export complete! {len(station_keys)} file(s) written.")
 
 
 def main():
