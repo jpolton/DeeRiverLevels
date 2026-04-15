@@ -130,3 +130,14 @@
 2026-04-15 22:06:05,229 INFO queens_park: gap_seconds 57959s
 2026-04-15 22:06:10,817 INFO queens_park: 0 new readings (window=1d)
 2026-04-15 22:06:10,821 INFO Pruned 17 old rows (> 7 days)
+2026-04-15 23:04:23,509 INFO chester: gap_seconds 5663s
+2026-04-15 23:04:24,439 INFO chester: 5 new readings (window=1d)
+2026-04-15 23:04:24,439 INFO liverpool: gap_seconds 7463s
+2026-04-15 23:04:28,418 INFO liverpool: 6 new readings (window=1d)
+2026-04-15 23:04:28,418 INFO ironbridge: gap_seconds 4763s
+2026-04-15 23:04:29,182 INFO ironbridge: 4 new readings (window=1d)
+2026-04-15 23:04:29,182 INFO farndon: gap_seconds 3863s
+2026-04-15 23:04:29,857 INFO farndon: 3 new readings (window=1d)
+2026-04-15 23:04:29,857 INFO queens_park: gap_seconds 61463s
+2026-04-15 23:04:30,511 INFO queens_park: 0 new readings (window=1d)
+2026-04-15 23:04:30,515 INFO Pruned 15 old rows (> 7 days)
