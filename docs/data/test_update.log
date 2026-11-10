@@ -1,22 +1,11 @@
-2026-11-09 17:35:23,488 INFO chester: gap_seconds 67823s
-2026-11-09 17:35:38,620 INFO chester: 74 new readings (window=1d)
-2026-11-09 17:35:38,620 INFO liverpool: gap_seconds 70523s
-2026-11-09 17:35:59,090 INFO liverpool: 76 new readings (window=1d)
-2026-11-09 17:35:59,090 INFO ironbridge: gap_seconds 66923s
-2026-11-09 17:35:59,777 INFO ironbridge: 70 new readings (window=1d)
-2026-11-09 17:35:59,777 INFO farndon: gap_seconds 66923s
-2026-11-09 17:36:00,446 INFO farndon: 70 new readings (window=1d)
-2026-11-09 17:36:00,446 INFO queens_park: gap_seconds 128123s
-2026-11-09 17:36:14,952 INFO queens_park: 24 new readings (window=2d)
-2026-11-09 17:36:14,955 INFO Pruned 315 old rows (> 7 days)
-2026-11-09 21:24:37,343 INFO chester: gap_seconds 14977s
-2026-11-09 21:24:38,315 INFO chester: 15 new readings (window=1d)
-2026-11-09 21:24:38,315 INFO liverpool: gap_seconds 15877s
-2026-11-09 21:25:08,802 INFO liverpool: 0 new readings (window=1d)
-2026-11-09 21:25:08,802 INFO ironbridge: gap_seconds 14977s
-2026-11-09 21:25:09,659 INFO ironbridge: 15 new readings (window=1d)
-2026-11-09 21:25:09,659 INFO farndon: gap_seconds 14977s
-2026-11-09 21:25:10,217 INFO farndon: 15 new readings (window=1d)
-2026-11-09 21:25:10,217 INFO queens_park: gap_seconds 55477s
-2026-11-09 21:25:40,728 INFO queens_park: 0 new readings (window=1d)
-2026-11-09 21:25:40,732 INFO Pruned 64 old rows (> 7 days)
+2026-11-10 00:51:59,781 INFO chester: gap_seconds 13919s
+2026-11-10 00:52:13,678 INFO chester: 13 new readings (window=1d)
+2026-11-10 00:52:13,678 INFO liverpool: gap_seconds 28319s
+2026-11-10 00:52:14,369 INFO liverpool: 27 new readings (window=1d)
+2026-11-10 00:52:14,369 INFO ironbridge: gap_seconds 13919s
+2026-11-10 00:52:15,397 INFO ironbridge: 3 new readings (window=1d)
+2026-11-10 00:52:15,397 INFO farndon: gap_seconds 13919s
+2026-11-10 00:52:15,973 INFO farndon: 3 new readings (window=1d)
+2026-11-10 00:52:15,973 INFO queens_park: gap_seconds 67919s
+2026-11-10 00:52:17,330 INFO queens_park: 0 new readings (window=1d)
+2026-11-10 00:52:17,332 INFO Pruned 59 old rows (> 7 days)
